@@ -19,12 +19,12 @@ public class PostDetailResponseDTO {
 
     private String storeFileName;
 
-    public PostDetailResponseDTO(Long id, String title, String content, String memberName, String uploadFileName, String storeFileName) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.memberName = memberName;
-        this.uploadFileName = uploadFileName;
-        this.storeFileName = storeFileName;
+    public PostDetailResponseDTO(Post post) {
+        this.id = post.getId();
+        this.title = post.getTitle();
+        this.content = post.getContent();
+        this.memberName = post.getMember().getName();
+        this.uploadFileName = post.getUploadFileName();
+        this.storeFileName = post.getStoreFileName();
     }
 }

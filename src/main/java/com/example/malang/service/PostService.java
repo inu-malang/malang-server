@@ -3,9 +3,15 @@ package com.example.malang.service;
 import com.example.malang.domain.Place;
 import com.example.malang.domain.Post;
 import com.example.malang.domain.member.Member;
+import com.example.malang.dto.PostDetailResponseDTO;
+import com.example.malang.dto.PostRequest;
+import com.example.malang.dto.PostResponseDTO;
+import com.example.malang.exception.BaseException;
+import com.example.malang.exception.ErrorCode;
+import com.example.malang.exception.ErrorResponse;
+import com.example.malang.repository.MemberRepository;
 import com.example.malang.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.tool.schema.extract.internal.ForeignKeyInformationImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +22,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +30,7 @@ import java.util.UUID;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final MemberRepository memberRepository;
 
     /**
      * 파일 저장 경로
@@ -30,24 +38,12 @@ public class PostService {
     @Value("${FILE_DIR}")
     private String fileDir;
 
-    public List<Post> findAll() {
-        return postRepository.findAll();
-    }
-
     public Optional<Post> findById(Long postId) {
         return postRepository.findById(postId);
     }
 
-    public List<Post> findByTitle(String title) {
-        return postRepository.findByTitle(title);
-    }
-
-    public List<Post> findByPlace(Place place) {
-        return postRepository.findByPlace(place);
-    }
-
     @Transactional
-    public Long createPost(String title, String content, Member member, Place place, MultipartFile imageFile) throws IOException {
+    public Long createPost(Long memberId, PostRequest postRequest, MultipartFile imageFile) throws IOException {
         //파일의 원본 이름
         String originalFileName = imageFile.getOriginalFilename();
         //DB에 저장될 파일 이름
@@ -56,10 +52,37 @@ public class PostService {
         //실제 디렉토리에 파일로 저장
         imageFile.transferTo(new File(fileDir + storeFileName));
 
-        Post post = new Post(title, content, member, place, originalFileName, storeFileName);
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_EXIST_USER));
+
+        Post post = Post.builder()
+                .title(postRequest.getTitle())
+                .content(postRequest.getContent())
+                .member(member)
+                .place(null)    //TODO
+                .uploadFileName(originalFileName)
+                .storeFileName(storeFileName)
+                .build();
 
         Post savedPost = postRepository.save(post);
         return savedPost.getId();
+    }
+
+    // 리스트 조회
+    public List<PostResponseDTO> findAllPost() {
+        List<Post> posts = postRepository.findAll();
+        return posts.stream()
+                .map(PostResponseDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    // 단건 조회
+    public PostDetailResponseDTO findPostById(Long postId) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_EXIST_POST));
+
+        return new PostDetailResponseDTO(post);
     }
 
     /**

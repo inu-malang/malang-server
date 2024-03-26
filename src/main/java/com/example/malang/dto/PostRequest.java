@@ -12,5 +12,7 @@ public class PostRequest {
 
     private String content;
 
-    private Place place;
+    /*
+    TODO: Place 관련 내용 수정 필수
+     */
 }

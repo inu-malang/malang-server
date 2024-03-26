@@ -3,6 +3,7 @@ package com.example.malang.domain;
 import com.example.malang.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import static jakarta.persistence.FetchType.*;
 
 @Entity
 @Getter
+@Builder
 @NoArgsConstructor
 public class Post {
 
@@ -30,6 +32,8 @@ public class Post {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    // TODO: 나이, 인원 수, 게시글 상태
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "place_id")
     private Place place;
@@ -41,6 +45,7 @@ public class Post {
 
     private String storeFileName;
 
+    @Builder
     public Post(String title, String content, Member member, Place place, String uploadFileName, String storeFileName) {
         this.title = title;
         this.content = content;

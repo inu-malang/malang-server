@@ -21,9 +21,9 @@ public class PostResponseDto {
 
         private int age;
 
-        private int male_members;
+        private int maleMembers;
 
-        private int female_members;
+        private int femaleMembers;
 
         private String uploadFileName;
 
@@ -36,8 +36,8 @@ public class PostResponseDto {
             this.content = post.getContent();
             this.memberName = post.getMember().getName();
             this.age = post.getAge();
-            this.male_members = post.getMale_members();
-            this.female_members = post.getFemale_members();
+            this.maleMembers = post.getMaleMembers();
+            this.femaleMembers = post.getFemaleMembers();
             this.uploadFileName = post.getUploadFileName();
             this.storeFileName = post.getStoreFileName();
         }

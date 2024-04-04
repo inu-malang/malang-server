@@ -15,17 +15,17 @@ public class PostRequestDto {
 
         private String placeName;
 
-        private String lat;
+        private String x;
 
-        private String lng;
+        private String y;
 
         private Address address;
 
         private int age;
 
-        private int male_members;
+        private int maleMembers;
 
-        private int female_members;
+        private int femaleMembers;
 
         private String content;
     }

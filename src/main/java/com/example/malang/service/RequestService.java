@@ -36,12 +36,7 @@ public class RequestService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_EXIST_POST));
 
-        Request request = Request.builder()
-                .message(requestRequestDto.getMessage())
-                .member(member)
-                .post(post)
-                .build();
-
+        Request request = Request.of(requestRequestDto, member, post);
         Request savedPost = requestRepository.save(request);
 
         post.getRequests().add(request);

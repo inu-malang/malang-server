@@ -1,6 +1,7 @@
 package com.example.malang.domain;
 
 import com.example.malang.config.BaseEntity;
+import com.example.malang.dto.PostRequestDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -38,5 +39,14 @@ public class Place extends BaseEntity {
         this.x = x;
         this.y = y;
         this.address = address;
+    }
+
+    public static Place from(PostRequestDto.PostRequest postRequest) {
+        return Place.builder()
+                .name(postRequest.getPlaceName())
+                .x(postRequest.getX())
+                .y(postRequest.getY())
+                .address(postRequest.getAddress())
+                .build();
     }
 }

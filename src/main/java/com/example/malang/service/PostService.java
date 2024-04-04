@@ -75,25 +75,10 @@ public class PostService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_EXIST_MEMBER));
 
-        Place place = Place.builder()
-                .name(postRequest.getPlaceName())
-                .x(postRequest.getX())
-                .y(postRequest.getY())
-                .address(postRequest.getAddress())
-                .build();
-        Place savedPlace = placeRepository.save(place);
+        Place place = Place.from(postRequest);
+        placeRepository.save(place);
 
-        Post post = Post.builder()
-                .title(postRequest.getTitle())
-                .content(postRequest.getContent())
-                .member(member)
-                .place(savedPlace)
-                .uploadFileName(originalFileName)
-                .storeFileName(storeFileName)
-                .age(postRequest.getAge())
-                .maleMembers(postRequest.getMaleMembers())
-                .femaleMembers(postRequest.getFemaleMembers())
-                .build();
+        Post post = Post.of(postRequest, place, member, storeFileName, originalFileName);
 
         Post savedPost = postRepository.save(post);
         return savedPost.getId();

@@ -2,6 +2,7 @@ package com.example.malang.domain;
 
 import com.example.malang.config.BaseEntity;
 import com.example.malang.domain.member.Member;
+import com.example.malang.dto.RequestRequestDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -39,10 +40,20 @@ public class Request extends BaseEntity {
     private ChatRoom chatRoom;
 
     @Builder
-    public Request(String message, Member member, Post post) {
+    public Request(String message, RequestStatus status, Member member, Post post) {
         this.message = message;
-        this.status = RequestStatus.WAIT;
+        this.status = status;
         this.member = member;
         this.post = post;
+    }
+
+    public static Request of(RequestRequestDto requestRequestDto, Member member, Post post) {
+        return Request.builder()
+                .message(requestRequestDto.getMessage())
+                .status(RequestStatus.WAIT)
+                .member(member)
+                .post(post)
+                .build();
+
     }
 }

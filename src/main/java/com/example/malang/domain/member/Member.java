@@ -50,7 +50,8 @@ public class Member {
     public static Member from(OauthLoginMember oAuthLoginMember) {
         return Member.builder()
                 .email(oAuthLoginMember.getEmail())
-                .name(oAuthLoginMember.getMemberName())
+                .name(oAuthLoginMember
+                        .getName())
                 .build();
     }
 

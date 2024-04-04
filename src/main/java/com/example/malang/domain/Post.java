@@ -2,6 +2,7 @@ package com.example.malang.domain;
 
 import com.example.malang.config.BaseEntity;
 import com.example.malang.domain.member.Member;
+import com.example.malang.dto.PostRequestDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -61,6 +62,20 @@ public class Post extends BaseEntity {
         this.age = age;
         this.maleMembers = maleMembers;
         this.femaleMembers = femaleMembers;
+    }
+
+    public static Post of(PostRequestDto.PostRequest postRequest, Place place, Member member, String storeFileName, String uploadFileName) {
+        return Post.builder()
+                .title(postRequest.getTitle())
+                .content(postRequest.getContent())
+                .member(member)
+                .place(place)
+                .uploadFileName(uploadFileName)
+                .storeFileName(storeFileName)
+                .age(postRequest.getAge())
+                .maleMembers(postRequest.getMaleMembers())
+                .femaleMembers(postRequest.getFemaleMembers())
+                .build();
     }
 
 

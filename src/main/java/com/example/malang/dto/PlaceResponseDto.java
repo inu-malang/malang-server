@@ -11,8 +11,8 @@ public class PlaceResponseDto {
     public static class PlaceResponse {
         private Long id;
         private String name;
-        private String lat;
-        private String lng;
+        private String x;
+        private String y;
         private String city;
         private String street;
         private String zipcode;
@@ -21,8 +21,8 @@ public class PlaceResponseDto {
             return PlaceResponse.builder()
                     .id(place.getId())
                     .name(place.getName())
-                    .lat(place.getLat())
-                    .lng(place.getLng())
+                    .x(place.getX())
+                    .y(place.getY())
                     .city(place.getAddress().getCity())
                     .street(place.getAddress().getStreet())
                     .zipcode(place.getAddress().getZipcode())

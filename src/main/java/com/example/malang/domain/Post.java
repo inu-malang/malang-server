@@ -29,9 +29,9 @@ public class Post extends BaseEntity {
 
     private int age;
 
-    private int male_members;
+    private int maleMembers;
 
-    private int female_members;
+    private int femaleMembers;
 
     @OneToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
@@ -51,7 +51,7 @@ public class Post extends BaseEntity {
     private String storeFileName;
 
     @Builder
-    public Post(String title, String content, Member member, Place place, String uploadFileName, String storeFileName, int age, int male_members, int female_members) {
+    public Post(String title, String content, Member member, Place place, String uploadFileName, String storeFileName, int age, int maleMembers, int femaleMembers) {
         this.title = title;
         this.content = content;
         this.member = member;
@@ -59,8 +59,8 @@ public class Post extends BaseEntity {
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;
         this.age = age;
-        this.male_members = male_members;
-        this.female_members = female_members;
+        this.maleMembers = maleMembers;
+        this.femaleMembers = femaleMembers;
     }
 
 

@@ -77,8 +77,8 @@ public class PostService {
 
         Place place = Place.builder()
                 .name(postRequest.getPlaceName())
-                .lat(postRequest.getLat())
-                .lng(postRequest.getLng())
+                .x(postRequest.getX())
+                .y(postRequest.getY())
                 .address(postRequest.getAddress())
                 .build();
         Place savedPlace = placeRepository.save(place);
@@ -87,12 +87,12 @@ public class PostService {
                 .title(postRequest.getTitle())
                 .content(postRequest.getContent())
                 .member(member)
-                .place(savedPlace)    //TODO
+                .place(savedPlace)
                 .uploadFileName(originalFileName)
                 .storeFileName(storeFileName)
                 .age(postRequest.getAge())
-                .male_members(postRequest.getMale_members())
-                .female_members(postRequest.getFemale_members())
+                .maleMembers(postRequest.getMaleMembers())
+                .femaleMembers(postRequest.getFemaleMembers())
                 .build();
 
         Post savedPost = postRepository.save(post);

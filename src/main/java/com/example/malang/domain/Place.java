@@ -22,9 +22,9 @@ public class Place extends BaseEntity {
 
     private String name;
 
-    private String lat;
+    private String x;
 
-    private String lng;
+    private String y;
 
     @Embedded
     private Address address;
@@ -33,10 +33,10 @@ public class Place extends BaseEntity {
     private List<Post> posts = new ArrayList<>();
 
     @Builder
-    public Place(String name, String lat, String lng, Address address) {
+    public Place(String name, String x, String y, Address address) {
         this.name = name;
-        this.lat = lat;
-        this.lng = lng;
+        this.x = x;
+        this.y = y;
         this.address = address;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.malang.domain;
 
+import com.example.malang.domain.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,10 +29,15 @@ public class ChatRoom {
     @JoinColumn(name = "request_id")
     private Request request;
 
+    public void setRequest(Request request) {
+        this.request = request;
+        request.setChatRoom(this);
+    }
+
     public static ChatRoom createChatRoom(Request request) {
         ChatRoom chatRoom = new ChatRoom();
         chatRoom.name = request.getPost().getTitle();
-        chatRoom.request = request;
+        chatRoom.setRequest(request);
         return chatRoom;
     }
 }

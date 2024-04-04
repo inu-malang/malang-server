@@ -45,4 +45,8 @@ public class Request extends BaseEntity {
         this.member = member;
         this.post = post;
     }
+
+    public void setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
+    }
 }

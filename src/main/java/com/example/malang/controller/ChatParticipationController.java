@@ -20,20 +20,21 @@ public class ChatParticipationController {
     private final ChatParticipationService chatParticipationService;
 
     @GetMapping("/api/v1/members/{memberId}/chat-participations")
-    public List<ChatParticipationResponseDto> findByMemberId(@PathVariable Long memberId) {
-        log.info("[findByMemberId] {}번 회원의 채팅 목록 조회를 합니다.", memberId);
+    public List<ChatParticipation> findByMemberId(@PathVariable Long memberId) {
+        log.info("[findByMemberId] {}번 회원의 채팅방 목록 조회를 합니다.", memberId);
         List<ChatParticipation> chatParticipationList = chatParticipationService.findByMemberId(memberId);
 
-        return chatParticipationList.stream()
-                .map(chatParticipation -> new ChatParticipationResponseDto(chatParticipation))
-                .collect(Collectors.toList());
+        return chatParticipationList;
+//        return chatParticipationList.stream()
+//                .map(chatParticipation -> new ChatParticipationResponseDto(chatParticipation))
+//                .collect(Collectors.toList());
     }
 
-    @GetMapping("/api/v1/members/{memberId}/rooms/{roomId}/chat-participations")
-    public ChatParticipationResponseDto findByMemberIdAndRoomId(@PathVariable Long memberId, @PathVariable Long roomId) {
-        log.info("[findByMemberIdAndRoomId] {}번 회원의 {}번 채팅 조회를 합니다.", memberId, roomId);
-        ChatParticipation chatParticipation = chatParticipationService.findByMemberIdAndRoomId(memberId, roomId);
+    @GetMapping("/api/v1/rooms/{roomId}/chat-participations")
+    public List<ChatParticipation> findByMemberIdAndRoomId(@PathVariable Long roomId) {
+        log.info("[findByRoomId] {}번 채팅방 조회를 합니다.", roomId);
+        List<ChatParticipation> chatParticipationList = chatParticipationService.findByRoomId(roomId);
 
-        return new ChatParticipationResponseDto(chatParticipation);
+        return chatParticipationList;
     }
 }

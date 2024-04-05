@@ -1,4 +1,4 @@
-package com.example.malang.config;
+package com.example.malang.config.base;
 
 import com.example.malang.exception.ErrorCode;
 import com.fasterxml.jackson.annotation.JsonInclude;

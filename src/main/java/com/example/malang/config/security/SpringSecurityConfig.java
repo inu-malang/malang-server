@@ -1,4 +1,4 @@
-package com.example.malang.config;
+package com.example.malang.config.security;
 
 
 import com.example.malang.jwt.JwtAuthorizationFilter;

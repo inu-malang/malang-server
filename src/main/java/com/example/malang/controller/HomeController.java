@@ -1,9 +1,6 @@
 package com.example.malang.controller;
 
-import com.example.malang.config.BaseResponse;
-import com.example.malang.domain.member.Member;
-import com.example.malang.dto.MainResponseDto;
-import com.example.malang.dto.PostResponseDto;
+import com.example.malang.config.base.BaseResponse;
 import com.example.malang.service.MainService;
 import com.example.malang.service.MemberService;
 import com.example.malang.service.PostService;

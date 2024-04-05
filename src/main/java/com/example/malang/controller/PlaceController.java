@@ -1,6 +1,6 @@
 package com.example.malang.controller;
 
-import com.example.malang.config.BaseResponse;
+import com.example.malang.config.base.BaseResponse;
 import com.example.malang.dto.PlaceResponseDto;
 import com.example.malang.dto.PostResponseDto;
 import com.example.malang.service.PlaceService;

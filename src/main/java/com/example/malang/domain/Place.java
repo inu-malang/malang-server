@@ -1,6 +1,6 @@
 package com.example.malang.domain;
 
-import com.example.malang.config.BaseEntity;
+import com.example.malang.config.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;

@@ -1,6 +1,7 @@
 package com.example.malang.controller;
 
-import com.example.malang.config.BaseResponse;
+
+import com.example.malang.config.base.BaseResponse;
 import com.example.malang.dto.RequestRequestDto;
 import com.example.malang.dto.RequestResponseDto;
 import com.example.malang.service.RequestService;

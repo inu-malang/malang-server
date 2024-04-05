@@ -1,4 +1,4 @@
-package com.example.malang.config;
+package com.example.malang.config.base;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

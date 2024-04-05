@@ -2,6 +2,7 @@ package com.example.malang.domain;
 
 import com.example.malang.config.base.BaseEntity;
 import com.example.malang.domain.member.Member;
+import com.example.malang.dto.PostRequestDto;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -64,4 +65,14 @@ public class Post extends BaseEntity {
     }
 
 
+    public void updatePost(PostRequestDto.PostRequest postRequest, Place modifyPlace, String originalFileName , String storeFileName) {
+        this.title = postRequest.getTitle();
+        this.content = postRequest.getContent();
+        this.place = modifyPlace;
+        this.uploadFileName = originalFileName;
+        this.storeFileName = storeFileName;
+        this.age = postRequest.getAge();
+        this.maleMembers = postRequest.getMaleMembers();
+        this.femaleMembers = postRequest.getFemaleMembers();
+    }
 }

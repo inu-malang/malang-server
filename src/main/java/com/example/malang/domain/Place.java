@@ -39,4 +39,13 @@ public class Place extends BaseEntity {
         this.y = y;
         this.address = address;
     }
+
+    /**
+     * 수정 메서드
+     */
+    public void updatePlace(String x, String y, String placeName) {
+        this.x =x;
+        this.y = y;
+        this.name = placeName;
+    }
 }

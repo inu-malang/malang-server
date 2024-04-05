@@ -12,12 +12,12 @@ public class MainResponseDto {
 
     @Getter @Builder
     public static class MainRequiredInfo {
-        private String memberName;
+        private String nickName;
         private List<PostListResponseDTO> postAll;
 
-        public static MainRequiredInfo toDto(String name, List<PostListResponseDTO> posts) {
+        public static MainRequiredInfo toDto(String nickName, List<PostListResponseDTO> posts) {
             return MainRequiredInfo.builder()
-                    .memberName(name)
+                    .nickName(nickName)
                     .postAll(posts)
                     .build();
         }

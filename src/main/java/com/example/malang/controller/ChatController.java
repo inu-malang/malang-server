@@ -18,6 +18,10 @@ public class ChatController {
 
     private final ChatService chatService;
 
+    /**
+     * chatParticipationId 의 아이디로 호출이 오면 메서드 호출
+     * SendTo 는 메서드의 결과(ChatResponse) 를 토픽(채팅 참여자)에게 전달
+     */
     @MessageMapping("/hello/{chatParticipationId}")
     @SendTo("/topic/greetings/{chatParticipationId}")
     public ChatResponse chat(@DestinationVariable Long chatParticipationId, ChatRequest chatRequest) {

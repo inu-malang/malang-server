@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +28,11 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
+    // main 화면 보여줄 닉네임
+    private String nickname;
+
     private String name;
 
-    // 이게 userId 로 될 수도 있다.
-    // 어차피 email 과 userId 가 같으니까 일단 email 로
     private String email;
 
     @OneToOne(mappedBy = "member", fetch = LAZY)
@@ -47,10 +49,11 @@ public class Member {
     /**
      * 생성 메서드
      */
-    public static Member from(OauthLoginMember oAuthLoginMember) {
+    public static Member from(OauthLoginMember oAuthLoginMember, int number) {
         return Member.builder()
                 .email(oAuthLoginMember.getEmail())
                 .name(oAuthLoginMember.getMemberName())
+                .nickname("말랑 " + String.valueOf(number))
                 .build();
     }
 

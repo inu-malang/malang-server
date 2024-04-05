@@ -52,10 +52,6 @@ public class PostService {
         return postRepository.findById(postId);
     }
 
-    /**
-     * 코드 리팩토링
-     * 서비스에서 builder 로 만들지 말고 from() 같은 메서드 만들어서 거기 안에서 builder 로 만드세요
-     */
     @Transactional
     public Long createPost(Long memberId, PostRequestDto.PostRequest postRequest, MultipartFile imageFile) throws IOException {
         //파일의 원본 이름
@@ -99,6 +95,46 @@ public class PostService {
         return savedPost.getId();
     }
 
+    @Transactional
+    public Long modifyPost(Long memberId, PostRequestDto.PostRequest postRequest, MultipartFile imageFile) throws IOException {
+
+        /**
+         * 수정을 왔다는 것은 해당 Member 가 작성한 Post 는 확실하게 있다는 것
+         * 이미지가 수정 됐을 경우 원래 이미지는 어떻게 할것인가 ? (사진은 수정을 안 했을때는?)
+         * 파일의 원본 이름이 달라지나 ?
+         *
+         * 파일 관련 코드 겹치는거 추출하기 //TODO
+         */
+
+        //파일의 원본 이름
+        String originalFileName = imageFile.getOriginalFilename();
+        //DB에 저장될 파일 이름
+        String storeFileName = createStoreFileName(originalFileName);
+
+        //S3에 저장
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType(imageFile.getContentType());
+        metadata.setContentLength(imageFile.getSize());
+        amazonS3Client.putObject(bucket, storeFileName, imageFile.getInputStream(), metadata);
+
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BaseException(ErrorCode.NOT_EXIST_MEMBER));
+        // 수정하려고 하는 Post
+        Post post = member.getPost();
+
+        // 수정하려고 하는 Post 의 Place
+        Place place = post.getPlace();
+
+        // 장소 수정
+        place.updatePlace(postRequest.getX(), postRequest.getY(), postRequest.getPlaceName());
+
+        // 게시물 수정
+        post.updatePost(postRequest , place , originalFileName , storeFileName);
+        return post.getId();
+
+
+    }
+
     // 리스트 조회
     public List<PostListResponseDTO> findAllPost() {
         List<Post> posts = postRepository.findAll();
@@ -114,6 +150,8 @@ public class PostService {
 
         return new PostDetailResponseDTO(post);
     }
+
+
 
     /**
      * 파일명이 겹치는 것을 방지하기위해 중복되지않는 UUID를 생성해서 반환(ext는 확장자)
@@ -139,4 +177,6 @@ public class PostService {
     public void delete(Post post) {
         postRepository.delete(post);
     }
+
+
 }

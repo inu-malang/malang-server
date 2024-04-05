@@ -30,6 +30,6 @@ public class MainService {
                 .map(PostResponseDto.PostListResponseDTO::new)
                 .toList();
 
-        return MainRequiredInfo.toDto(member.getName() , postDtoList);
+        return MainRequiredInfo.toDto(member.getNickname() , postDtoList);
     }
 }

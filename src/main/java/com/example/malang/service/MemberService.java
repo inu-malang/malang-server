@@ -3,11 +3,13 @@ package com.example.malang.service;
 import com.example.malang.domain.Post;
 import com.example.malang.domain.member.Member;
 import com.example.malang.dto.PostResponseDto;
+import com.example.malang.dto.RequestRequestDto;
 import com.example.malang.exception.BaseException;
 import com.example.malang.exception.ErrorCode;
 import com.example.malang.jwt.JwtService;
 import com.example.malang.jwt.TokenMapping;
 import com.example.malang.repository.MemberRepository;
+import com.example.malang.repository.RequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +23,7 @@ import static com.example.malang.dto.PostResponseDto.*;
 @Transactional(readOnly = true)
 public class MemberService {
 
+    private final RequestRepository requestRepository;
     private final MemberRepository memberRepository;
     private final JwtService jwtService;
     private static int NICKNAME_NUMBER = 1;
@@ -73,4 +76,6 @@ public class MemberService {
         return memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_EXIST_MEMBER));
     }
+
+
 }

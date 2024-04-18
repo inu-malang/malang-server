@@ -28,8 +28,6 @@ public class Post extends BaseEntity {
 
     private String content;
 
-    private int age;
-
     private int maleMembers;
 
     private int femaleMembers;
@@ -52,14 +50,13 @@ public class Post extends BaseEntity {
     private String storeFileName;
 
     @Builder
-    public Post(String title, String content, Member member, Place place, String uploadFileName, String storeFileName, int age, int maleMembers, int femaleMembers) {
+    public Post(String title, String content, Member member, Place place, String uploadFileName, String storeFileName, int maleMembers, int femaleMembers) {
         this.title = title;
         this.content = content;
         this.member = member;
         this.place = place;
         this.uploadFileName = uploadFileName;
         this.storeFileName = storeFileName;
-        this.age = age;
         this.maleMembers = maleMembers;
         this.femaleMembers = femaleMembers;
     }
@@ -72,7 +69,6 @@ public class Post extends BaseEntity {
                 .place(place)
                 .uploadFileName(uploadFileName)
                 .storeFileName(storeFileName)
-                .age(postRequest.getAge())
                 .maleMembers(postRequest.getMaleMembers())
                 .femaleMembers(postRequest.getFemaleMembers())
                 .build();

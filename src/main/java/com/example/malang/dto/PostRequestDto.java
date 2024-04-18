@@ -21,8 +21,6 @@ public class PostRequestDto {
 
         private Address address;
 
-        private int age;
-
         private int maleMembers;
 
         private int femaleMembers;

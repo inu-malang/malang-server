@@ -27,18 +27,17 @@ public class Place extends BaseEntity {
 
     private String y;
 
-    @Embedded
-    private Address address;
+//    @Embedded
+//    private Address address;
 
     @OneToMany(mappedBy = "place")
     private List<Post> posts = new ArrayList<>();
 
     @Builder
-    public Place(String name, String x, String y, Address address) {
+    public Place(String name, String x, String y) {
         this.name = name;
         this.x = x;
         this.y = y;
-        this.address = address;
     }
 
     public static Place from(PostRequestDto.PostRequest postRequest) {
@@ -46,7 +45,6 @@ public class Place extends BaseEntity {
                 .name(postRequest.getPlaceName())
                 .x(postRequest.getX())
                 .y(postRequest.getY())
-                .address(postRequest.getAddress())
                 .build();
     }
 }

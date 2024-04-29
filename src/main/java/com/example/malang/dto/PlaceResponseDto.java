@@ -13,9 +13,6 @@ public class PlaceResponseDto {
         private String name;
         private String x;
         private String y;
-        private String city;
-        private String street;
-        private String zipcode;
 
         public static PlaceResponse from(Place place) {
             return PlaceResponse.builder()
@@ -23,9 +20,6 @@ public class PlaceResponseDto {
                     .name(place.getName())
                     .x(place.getX())
                     .y(place.getY())
-                    .city(place.getAddress().getCity())
-                    .street(place.getAddress().getStreet())
-                    .zipcode(place.getAddress().getZipcode())
                     .build();
         }
     }

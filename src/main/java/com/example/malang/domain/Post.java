@@ -29,7 +29,7 @@ public class Post extends BaseEntity {
     private String content;
 
     private int maleMembers;
-
+  
     private int femaleMembers;
 
     @OneToOne(fetch = LAZY)

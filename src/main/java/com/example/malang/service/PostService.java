@@ -74,7 +74,7 @@ public class PostService {
 
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_EXIST_MEMBER));
-
+      
         Place place = Place.from(postRequest);
         placeRepository.save(place);
 

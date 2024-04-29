@@ -2,13 +2,16 @@ package com.example.malang.domain;
 
 import com.example.malang.domain.member.Member;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class ChatParticipation {
 
     @Id
@@ -26,4 +29,22 @@ public class ChatParticipation {
 
     @OneToMany(mappedBy = "chatParticipation")
     private List<Chat> chatList = new ArrayList<>();
+
+    public void setMember(Member member) {
+        this.member = member;
+        member.getChatParticipationList().add(this);
+    }
+
+    public void setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
+        chatRoom.getChatParticipationList().add(this);
+    }
+
+    public static ChatParticipation createChatParticipation(Member member, ChatRoom chatRoom) {
+        ChatParticipation chatParticipation = new ChatParticipation();
+        chatParticipation.setMember(member);
+        chatParticipation.setChatRoom(chatRoom);
+
+        return chatParticipation;
+    }
 }

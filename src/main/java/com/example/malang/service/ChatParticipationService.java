@@ -1,7 +1,11 @@
 package com.example.malang.service;
 
 import com.example.malang.domain.ChatParticipation;
+import com.example.malang.domain.ChatRoom;
+import com.example.malang.domain.member.Member;
 import com.example.malang.repository.ChatParticipationRepository;
+import com.example.malang.repository.ChatRoomRepository;
+import com.example.malang.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,15 +18,25 @@ import java.util.List;
 public class ChatParticipationService {
 
     private final ChatParticipationRepository chatParticipationRepository;
-    public List<ChatParticipation> findByMemberId(Long memberId) {
-        List<ChatParticipation> chatParticipationList = chatParticipationRepository.findByMemberId(memberId);
 
+    private final MemberRepository memberRepository;
+
+    private final ChatRoomRepository chatRoomRepository;
+
+    public List<ChatParticipation> findByMemberId(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException());
+
+        List<ChatParticipation> chatParticipationList = member.getChatParticipationList();
         return chatParticipationList;
     }
 
-    public ChatParticipation findByMemberIdAndRoomId(Long memberId, Long roomId) {
-        ChatParticipation chatParticipation = chatParticipationRepository.findByMemberIdAndChatRoomId(memberId, roomId);
+    public List<ChatParticipation> findByRoomId(Long roomId) {
+        ChatRoom chatRoom = chatRoomRepository.findById(roomId)
+                .orElseThrow(() -> new RuntimeException());
 
-        return chatParticipation;
+        List<ChatParticipation> chatParticipationList = chatRoom.getChatParticipationList();
+
+        return chatParticipationList;
     }
 }

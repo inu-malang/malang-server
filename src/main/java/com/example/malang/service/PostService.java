@@ -36,11 +36,6 @@ public class PostService {
     private final PlaceRepository placeRepository;
     private final AmazonS3Client amazonS3Client;
 
-    /**
-     * 파일 저장 경로
-     */
-//    @Value("${FILE_DIR}")
-    private String fileDir;
 
     /**
      * S3
@@ -63,9 +58,6 @@ public class PostService {
         //DB에 저장될 파일 이름
         String storeFileName = createStoreFileName(originalFileName);
 
-        //실제 디렉토리에 파일로 저장
-        //imageFile.transferTo(new File(fileDir + storeFileName));
-
         //S3에 저장
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentType(imageFile.getContentType());
@@ -74,7 +66,7 @@ public class PostService {
 
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new BaseException(ErrorCode.NOT_EXIST_MEMBER));
-      
+
         Place place = Place.from(postRequest);
         placeRepository.save(place);
 
@@ -115,13 +107,5 @@ public class PostService {
     private String extractExt(String originalFilename) {
         int post = originalFilename.lastIndexOf(".");
         return originalFilename.substring(post + 1);
-    }
-
-    public String getFullPath(String fileName) {
-        return fileDir + fileName;
-    }
-
-    public void delete(Post post) {
-        postRepository.delete(post);
     }
 }
